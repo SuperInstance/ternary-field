@@ -228,4 +228,37 @@ mod tests {
         let grad = gradient(&g, 3);
         assert_eq!(grad.len(), 3);
     }
+
+    #[test]
+    fn test_laplacian_linear_ramp() {
+        // Interior cells of a linear ramp should have zero laplacian
+        let g = vec![0, 1, 2, 3, 4, 5, 6, 7, 8]; // 3x3 linear ramp
+        let lap = laplacian(&g, 3);
+        // Only check center cell (4) - interior of the ramp
+        assert!((lap[4]).abs() < 0.01);
+    }
+
+    #[test]
+    fn test_curl_4x4() {
+        // Larger grid with asymmetric values
+        let g = vec![
+            1, 0, -1, 0,
+            0, 1, 0, -1,
+            -1, 0, 1, 0,
+            0, -1, 0, 1
+        ];
+        let c = curl(&g, 4);
+        assert_eq!(c.len(), 16);
+        // Interior cells (5,6,9,10) should have computed curl values
+        // Even if zero for gradient fields, the function runs correctly
+        assert!(c.iter().all(|v| v.is_finite()));
+    }
+
+    #[test]
+    fn test_field_energy_nonzero() {
+        let g = vec![0, 1, 0, 0, 0, 0, 0, 0, 0]; // spike
+        let e = field_energy(&g, 3);
+        let total: f64 = e.iter().sum();
+        assert!(total > 0.0);
+    }
 }

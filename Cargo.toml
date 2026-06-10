@@ -1,4 +1,6 @@
 [package]
+description = "ternary-field - SuperInstance ecosystem crate"
+repository = "https://github.com/SuperInstance/ternary-field"
 name = "ternary-field"
 version = "0.1.0"
 edition = "2021"

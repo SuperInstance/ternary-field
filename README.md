@@ -89,6 +89,19 @@ Field operators enable spatial reasoning in **SuperInstance**: detecting phase b
 - Press, W. H. et al. *Numerical Recipes*, 3rd ed., Cambridge UP, 2007 — grid-based PDE solvers.
 - Trefethen, Lloyd N. *Finite Difference and Spectral Methods for Ordinary and Partial Differential Equations*, Cornell, 1996.
 
+
+
+## Complexity Summary
+
+| Operator | Formula | Time | Space |
+|---|---|---|---|
+| Gradient | ∂f/∂x, ∂f/∂y | O(N) | O(N) |
+| Laplacian | Σ neighbors - k·center | O(N) | O(N) |
+| Divergence | ∂Fx/∂x + ∂Fy/∂y | O(N) | O(N) |
+| Curl | ∂Fy/∂x - ∂Fx/∂y | O(N) | O(N) |
+
+All operators use forward/backward differences with O(1) per cell. Boundary handling: forward at edges, no ghost cells needed.
+
 ## License
 
 MIT
